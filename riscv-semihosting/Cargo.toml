@@ -1,9 +1,5 @@
 [package]
-authors = [
-    "The Cortex-M Team <cortex-m@teams.rust-embedded.org>",
-    "Jorge Aparicio <japaricious@gmail.com>",
-    "The RISC-V Team <risc-v@teams.rust-embedded.org>",
-]
+authors = ["Henri Lunnikivi <henri.lunnikivi@tuni.fi>"]
 description = "Semihosting for RISCV processors"
 documentation = "https://docs.rs/riscv-semihosting"
 keywords = ["semihosting", "riscv"]
@@ -11,7 +7,7 @@ categories = ["no-std", "embedded"]
 license = "MIT OR Apache-2.0"
 name = "riscv-semihosting"
 readme = "README.md"
-repository = "https://github.com/riscv-rust/riscv"
+repository = "https://github.com/soc-hub-fi/pulpissimo-riscv"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.60.0"
