@@ -763,8 +763,9 @@ pub extern "Rust" fn default_mp_hook(hartid: usize) -> bool {
 #[rustfmt::skip]
 pub unsafe extern "Rust" fn default_setup_interrupts() {
     extern "C" {
-        fn _start_trap();
+        fn _vectors();
     }
 
-    xtvec::write(_start_trap as usize, xTrapMode::Direct);
+    // Ibex & RI5CY do not support direct mode interrupts
+    xtvec::write(_vectors as usize, xTrapMode::Vectored);
 }

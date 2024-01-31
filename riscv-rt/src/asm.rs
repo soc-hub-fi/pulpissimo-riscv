@@ -200,6 +200,18 @@ trap_handler!(
      (a0, 8), (a1, 9), (a2, 10), (a3, 11), (a4, 12), (a5, 13), (a6, 14), (a7, 15)]
 );
 
+/* Put this also in the .trap section */
+global_asm!(
+    "_no_irq_handler:"
+);
+cfg_global_asm!(
+    // return from trap
+    #[cfg(feature = "s-mode")]
+    "sret",
+    #[cfg(not(feature = "s-mode"))]
+    "mret",
+);
+
 // Make sure there is an abort when linking
 global_asm!(
     ".section .text.abort
@@ -207,3 +219,32 @@ global_asm!(
 abort:
     j abort"
 );
+
+/* Default interrupt table
+ *
+ * "ax" means that this is an executable and allocatable section.
+ * This section has to be down here, since we have to disable rvc for it.
+ */
+global_asm!(
+    ".section .vectors, \"ax\"
+
+    /* norvc :=
+     *  Disable generation of compressed instructions. Instructions are
+     * opportunistically compressed by the RISC-V assembler when possible, but
+     * sometimes this behavior is not desirable.
+     */
+    .option norvc;
+
+    /* No need for alignment because we link it to 0x0 in link.x */
+    .global _vectors
+    _vectors:
+        // All unimplemented interrupts/exceptions go to _no_irq_handler
+        .org 0x00
+        .rept 31
+        jal x0, _no_irq_handler
+        .endr
+
+        // Reset vector
+        .org 0x7c
+        jal x0, _start
+");
