@@ -750,7 +750,9 @@ pub extern "Rust" fn default_pre_init() {}
 #[cfg(not(feature = "single-hart"))]
 pub extern "Rust" fn default_mp_hook(hartid: usize) -> bool {
     match hartid {
-        0 => true,
+        // HACK: PULPissimo-based processors Ibex and RI5CY all have a Hart ID of 992 regardless of whether they are
+        // used as the boot core or not, therefore we must return true for that id
+        0 | 992 => true,
         _ => loop {
             unsafe { riscv::asm::wfi() }
         },
