@@ -22,6 +22,8 @@ targets = [
 [features]
 s-mode = []
 critical-section-single-hart = ["critical-section/restore-state-bool"]
+ballast = []
+ballast-sysctrl = ["ballast"]
 
 [dependencies]
 critical-section = "1.1.2"

@@ -106,6 +106,10 @@ pub mod minstreth;
 mod mhpmeventx;
 pub use self::mhpmeventx::*;
 
+// Pick some registers based on architecture
+#[cfg(feature = "ballast-sysctrl")]
+mod ballast_sysctrl;
+
 // TODO: Debug/Trace Registers (shared with Debug Mode)
 
 // TODO: Debug Mode Registers

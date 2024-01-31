@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [pulpissimo-riscv] - 2024-01-14
+
+- Replace `mie`, `mip` contents with device specific implementations
+
 ## [v0.11.0] - 2024-01-14
 
 ### Added
