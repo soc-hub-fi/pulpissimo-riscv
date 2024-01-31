@@ -24,6 +24,7 @@ s-mode = []
 critical-section-single-hart = ["critical-section/restore-state-bool"]
 ballast = []
 ballast-sysctrl = ["ballast"]
+ballast-mpc = ["ballast"]
 tackle = []
 
 [dependencies]

@@ -3,6 +3,8 @@
 // Re-expose relevant symbols from under `self::<arch>::mip::*` as `crate::register::mip::*`
 #[cfg(feature = "ballast-sysctrl")]
 pub use super::ballast_sysctrl::mip::*;
+#[cfg(feature = "ballast-mpc")]
+pub use super::ballast_mpc::mip::*;
 #[cfg(feature = "tackle")]
 pub use super::tackle::mip::*;
 

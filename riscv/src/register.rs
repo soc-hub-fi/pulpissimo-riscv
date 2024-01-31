@@ -109,6 +109,8 @@ pub use self::mhpmeventx::*;
 // Pick some registers based on architecture
 #[cfg(feature = "ballast-sysctrl")]
 mod ballast_sysctrl;
+#[cfg(feature = "ballast-mpc")]
+mod ballast_mpc;
 #[cfg(feature = "tackle")]
 mod tackle;
 
