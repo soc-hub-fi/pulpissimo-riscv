@@ -1,10 +1,10 @@
 [package]
-name = "riscv"
+name = "pulpissimo-riscv"
 version = "0.11.0"
 edition = "2021"
 rust-version = "1.60"
-repository = "https://github.com/rust-embedded/riscv"
-authors = ["The RISC-V Team <risc-v@teams.rust-embedded.org>"]
+repository = "https://github.com/soc-hub-fi/pulpissimo-riscv"
+authors = ["Henri Lunnikivi <henri.lunnikivi@tuni.fi>"]
 categories = ["embedded", "hardware-support", "no-std"]
 description = "Low level access to RISC-V processors"
 documentation = "https://docs.rs/riscv"
