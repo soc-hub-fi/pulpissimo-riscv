@@ -1,9 +1,13 @@
 //! mtvec register
 
+// Re-expose relevant symbols from under `self::<arch>::mtvec::*` as `crate::register::mtvec::*`
+#[cfg(feature = "tackle")]
+pub use super::tackle::mtvec::*;
+
 /// mtvec register
 #[derive(Clone, Copy, Debug)]
 pub struct Mtvec {
-    bits: usize,
+    pub(crate) bits: usize,
 }
 
 /// Trap mode
@@ -38,12 +42,14 @@ impl Mtvec {
     }
 }
 
+#[cfg(not(feature = "tackle"))]
 read_csr_as!(Mtvec, 0x305);
-
+#[cfg(not(feature = "tackle"))]
 write_csr!(0x305);
 
 /// Writes the CSR
 #[inline]
+#[cfg(not(feature = "tackle"))]
 pub unsafe fn write(addr: usize, mode: TrapMode) {
     let bits = addr + mode as usize;
     _write(bits);

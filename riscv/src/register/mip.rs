@@ -3,6 +3,8 @@
 // Re-expose relevant symbols from under `self::<arch>::mip::*` as `crate::register::mip::*`
 #[cfg(feature = "ballast-sysctrl")]
 pub use super::ballast_sysctrl::mip::*;
+#[cfg(feature = "tackle")]
+pub use super::tackle::mip::*;
 
 /// mip register
 #[derive(Clone, Copy, Debug)]
@@ -18,6 +20,10 @@ impl Mip {
     }
 }
 
+// Tackle has these registers somewhere else. Defined in tackle/mie.rs
+#[cfg(not(feature = "tackle"))]
 read_csr_as!(Mip, 0x344);
+#[cfg(not(feature = "tackle"))]
 set!(0x344);
+#[cfg(not(feature = "tackle"))]
 clear!(0x344);
