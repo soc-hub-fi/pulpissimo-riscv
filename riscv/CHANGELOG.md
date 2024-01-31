@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [pulpissimo-riscv] - 2024-01-14
 
 - Replace `mie`, `mip` contents with device specific implementations
+- Tackle: Use special interrupt CSR locations for Tackle: mie@0x7d0, mtvec@0x7d1, mip@0x7d2
 
 ## [v0.11.0] - 2024-01-14
 
