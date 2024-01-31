@@ -1,9 +1,21 @@
 //! mie register
 
+// Re-expose relevant symbols from under `self::<arch>::mie::*` as `crate::register::mie::*`
+#[cfg(feature = "ballast-sysctrl")]
+pub use super::ballast_sysctrl::mie::*;
+#[cfg(feature = "ballast-mpc")]
+pub use super::ballast_mpc::mie::*;
+#[cfg(feature = "tackle")]
+pub use super::tackle::mie::*;
+
 /// mie register
+///
+/// ## Tackle-specific
+///
+/// MIE has all bits up (0xffff_ffff) on boot on Tackle unlike other RISC-V.
 #[derive(Clone, Copy, Debug)]
 pub struct Mie {
-    bits: usize,
+    pub(crate) bits: usize,
 }
 
 impl Mie {
@@ -12,63 +24,12 @@ impl Mie {
     pub fn bits(&self) -> usize {
         self.bits
     }
-
-    /// Supervisor Software Interrupt Enable
-    #[inline]
-    pub fn ssoft(&self) -> bool {
-        self.bits & (1 << 1) != 0
-    }
-
-    /// Machine Software Interrupt Enable
-    #[inline]
-    pub fn msoft(&self) -> bool {
-        self.bits & (1 << 3) != 0
-    }
-
-    /// Supervisor Timer Interrupt Enable
-    #[inline]
-    pub fn stimer(&self) -> bool {
-        self.bits & (1 << 5) != 0
-    }
-
-    /// Machine Timer Interrupt Enable
-    #[inline]
-    pub fn mtimer(&self) -> bool {
-        self.bits & (1 << 7) != 0
-    }
-
-    /// Supervisor External Interrupt Enable
-    #[inline]
-    pub fn sext(&self) -> bool {
-        self.bits & (1 << 9) != 0
-    }
-
-    /// Machine External Interrupt Enable
-    #[inline]
-    pub fn mext(&self) -> bool {
-        self.bits & (1 << 11) != 0
-    }
 }
 
+// Tackle has these registers somewhere else. Defined in tackle/mie.rs
+#[cfg(not(feature = "tackle"))]
 read_csr_as!(Mie, 0x304);
+#[cfg(not(feature = "tackle"))]
 set!(0x304);
+#[cfg(not(feature = "tackle"))]
 clear!(0x304);
-
-set_clear_csr!(
-    /// Supervisor Software Interrupt Enable
-    , set_ssoft, clear_ssoft, 1 << 1);
-set_clear_csr!(
-    /// Machine Software Interrupt Enable
-    , set_msoft, clear_msoft, 1 << 3);
-set_clear_csr!(
-    /// Supervisor Timer Interrupt Enable
-    , set_stimer, clear_stimer, 1 << 5);
-set_clear_csr!(
-    /// Machine Timer Interrupt Enable
-    , set_mtimer, clear_mtimer, 1 << 7);
-set_clear_csr!(
-    /// Supervisor External Interrupt Enable
-    , set_sext, clear_sext, 1 << 9);
-set_clear_csr!(
-    /// Machine External Interrupt Enable
-    , set_mext, clear_mext, 1 << 11);

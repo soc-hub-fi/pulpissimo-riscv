@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [pulpissimo-riscv] - 2024-01-24
+
+- Use vectored interrupts by default, since PULPissimo based processores do not support direct mode at all
+- Add trap vector to the start of the program
+- Patch default_mp_hook to use both 0 **and** 992 for boot core
+
 ## [v0.12.1] - 2024-01-24
 
 ### Added
